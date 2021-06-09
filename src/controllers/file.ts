@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import HttpStatus from "http-status-codes";
 import { AWS_CONFIGURATION } from '../config/constants';
 
+var exifParser = require('exif-parser');
 // configure AWS S3
 const AWS = require('aws-sdk');
 
@@ -17,19 +18,31 @@ interface MulterRequest extends Request {
 
 export const uploadImage = async (req: Request, res: Response) => {
     // upload file to AWS S3 bucket.
-    const files  = (req as MulterRequest).files;
-    const params = {
-        Bucket: AWS_CONFIGURATION.AWS_S3_BUCKET_NAME, 
-        Key: files.file.name,
-        Body: JSON.stringify(files.file.data, null, 2)
-    };
-    s3.upload(params, function(s3Err: any, data: any) {
-        if (s3Err) {
-          return res
-            .status(HttpStatus.BAD_REQUEST)
-            .json({ message: "Can not upload image. Please try again." });
-        }
-        console.log(`File uploaded successfully at ${data.Location}`)
-        return res.json({ message: "Image uploaded successfully!"});
-    });
+    try {
+      const files  = (req as MulterRequest).files;
+      const params = {
+          Bucket: AWS_CONFIGURATION.AWS_S3_BUCKET_NAME, 
+          Key: files.file.name,
+          Body: JSON.stringify(files.file.data, null, 2)
+      };
+
+      await s3.upload(params);
+
+      // extract metadata from image
+      var exifMetaDataParser = exifParser.create(files.file.data);
+      var exifMetaData = exifMetaDataParser.parse();
+      const metadataParams = {
+          Bucket: AWS_CONFIGURATION.AWS_S3_BUCKET_NAME, 
+          Key: 'latestUploadedImageMetadata.json',
+          Body: JSON.stringify(exifMetaData, null, 2)
+      };
+      await s3.upload(metadataParams);
+
+      return res.json({ message: "Image uploaded successfully!"});
+    } catch(err) {
+      return res
+              .status(HttpStatus.BAD_REQUEST)
+              .json({ message: "Can not upload image. Please try again." });
+    }
+    
 };

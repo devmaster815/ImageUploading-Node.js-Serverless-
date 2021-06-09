@@ -10,6 +10,7 @@ const fileupload = require("express-fileupload");
 const cors = require("cors");
 
 const application: Application = express();
+const serverless = require('serverless-http');
 
 application.use(cors());
 application.use(fileupload());
@@ -20,3 +21,5 @@ setup(application);
 application.listen(APP_PORT, (): void => {
   console.log('server listening on port', APP_PORT);
 });
+
+// module.exports.handler = serverless(application);
