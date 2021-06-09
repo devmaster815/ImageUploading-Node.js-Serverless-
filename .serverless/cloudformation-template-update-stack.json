@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/imageuploading-app/dev/1623221423975-2021-06-09T06:50:23.975Z/imageuploading-app.zip"
+          "S3Key": "serverless/imageuploading-app/dev/1623228254238-2021-06-09T08:44:14.238Z/imageuploading-app.zip"
         },
         "Handler": "app/app.handler",
         "Runtime": "nodejs14.15.1",
@@ -179,14 +179,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionB36xGtngXt832YZ9jaxyvzepo6tknt0Q2yEcd1YuOM": {
+    "AppLambdaVersionNmlxVIPLn2x7CGDYSHWrf6rka2CnD4vaH3L3CW8hXSs": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "FHSC+Hv+UE+gQne3mn+WJCATBdEKzGTnDiZ2BJgXC2A="
+        "CodeSha256": "uBWrqSKe8V8ElH8t1jCY4ro/JT1AgASHW+n2xF8R/N8="
       }
     },
     "ApiGatewayRestApi": {
@@ -398,7 +398,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1623221366275": {
+    "ApiGatewayDeployment1623228240436": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -463,7 +463,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionB36xGtngXt832YZ9jaxyvzepo6tknt0Q2yEcd1YuOM"
+        "Ref": "AppLambdaVersionNmlxVIPLn2x7CGDYSHWrf6rka2CnD4vaH3L3CW8hXSs"
       },
       "Export": {
         "Name": "sls-imageuploading-app-dev-AppLambdaFunctionQualifiedArn"

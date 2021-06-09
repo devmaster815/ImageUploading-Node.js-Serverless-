@@ -18,8 +18,8 @@ application.use(express.static("files"));
 
 setup(application);
 
-application.listen(APP_PORT, (): void => {
-  console.log('server listening on port', APP_PORT);
-});
+// application.listen(APP_PORT, (): void => {
+//   console.log('server listening on port', APP_PORT);
+// });
 
-// module.exports.handler = serverless(application);
+module.exports.handler = serverless(application);
