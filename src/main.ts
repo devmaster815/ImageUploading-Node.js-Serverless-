@@ -6,7 +6,14 @@ import express, { Application } from 'express';
 import { APP_PORT } from './config/constants';
 import setup from './config';
 
+const fileupload = require("express-fileupload");
+const cors = require("cors");
+
 const application: Application = express();
+
+application.use(cors());
+application.use(fileupload());
+application.use(express.static("files"));
 
 setup(application);
 
