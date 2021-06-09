@@ -16,6 +16,7 @@ interface MulterRequest extends Request {
 }
 
 export const uploadImage = async (req: Request, res: Response) => {
+    // upload file to AWS S3 bucket.
     const files  = (req as MulterRequest).files;
     const params = {
         Bucket: AWS_CONFIGURATION.AWS_S3_BUCKET_NAME, 
